@@ -1,14 +1,34 @@
--- initialize connection to the arduino
+--
+-- abbozza! minetest plugin
+--
+-- Copyright 2017 Michael Brinkmeier ( michael.brinkmeier@uni-osnabrueck.de )
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--   http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+--
+--
+-- The wrapper for the communication of minetrst with an abbozza! monitor
+--
 
 local abz_timer = 0
 local abz_buffer = ""
-
+local count = 0
 
 -- the queue of messages
 messages = Queue:new()
 
 -- initalize the default port
-abz_init("localhost","54242",5000)
+abz_init("localhost","54242",20000)
 
 
 -- the function for handling the messages
@@ -47,9 +67,13 @@ abz_globalstep = function()
 
 end
 
-abz_send = function(pos,message)
+abz_send = function(pos,message,timeout)
     local id = "_" .. pos.x .. "_" .. pos.y .. "_" .. pos.z
-    messages:enqueue( "[[" .. id .. " ".. message .. "]]" )
+    local msg = "[[" .. id .. " " .. message .. "]]"
+    if ( timeout > 0 ) then
+       msg = msg .. "&timeout=" .. timeout 
+    end
+    messages:enqueue( msg )
 end
 
 
