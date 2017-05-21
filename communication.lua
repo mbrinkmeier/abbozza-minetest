@@ -35,7 +35,6 @@ abz_init("localhost","54242",5000)
 abz_globalstep = function()
    local message = messages:dequeue()
    if message ~= nil then
-   	-- print("sending : " .. message)
    	abz_write(message)
    end
    
@@ -73,6 +72,17 @@ abz_send = function(pos,message,timeout)
     if ( timeout > 0 ) then
        msg = msg .. "&timeout=" .. timeout 
     end
+    messages:enqueue( msg )
+end
+
+
+abz_send_http = function(pos,host,port,message,timeout)
+    local id = "_" .. pos.x .. "_" .. pos.y .. "_" .. pos.z
+    local msg = "[[" .. id .. " " .. message .. "]]"
+    if ( timeout > 0 ) then
+       msg = msg .. "&timeout=" .. timeout 
+    end
+    msg = "http://" .. host .. ":" .. port .. "/abbozza/serial?msg=" .. msg
     messages:enqueue( msg )
 end
 

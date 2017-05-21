@@ -22,11 +22,6 @@
 --
 print("Initializing communication with abbozza! via http")
 
---
--- The default values
---
-abz_path = "http://" .. abz_host .. ":" .. abz_port .. "/abbozza/serial?"
-
 local response_buffer = ""
 
 --
@@ -40,7 +35,6 @@ abz_init = function(server,port,timeout)
       abz_port = port
    end
    abz_timeout = timeout
-   abz_path = "http://" .. abz_host .. ":" .. abz_port .. "/abbozza/serial?"
 end
 
 --
@@ -63,7 +57,7 @@ end
 -- send a message as http request
 --
 abz_write = function(message)
-   local myurl = abz_path .. "&msg=" .. message
+   local myurl = message
    myurl = myurl:gsub(" ","%%20")
    local request = {
       url = myurl,
