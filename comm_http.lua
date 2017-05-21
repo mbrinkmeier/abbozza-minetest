@@ -25,9 +25,6 @@ print("Initializing communication with abbozza! via http")
 --
 -- The default values
 --
-abz_host = "localhost"
-abz_port = "54242"
-abz_timeout = 5000
 abz_path = "http://" .. abz_host .. ":" .. abz_port .. "/abbozza/serial?"
 
 local response_buffer = ""
@@ -37,10 +34,10 @@ local response_buffer = ""
 --
 abz_init = function(server,port,timeout)
    if server ~= nil then 
-	   abz_host = server
-	end
+      abz_host = server
+   end
    if port ~= nil then 
-	   abz_port = port
+      abz_port = port
    end
    abz_timeout = timeout
    abz_path = "http://" .. abz_host .. ":" .. abz_port .. "/abbozza/serial?"
@@ -59,7 +56,7 @@ end
 -- callback function, if content is received via an http request
 --
 local function abz_write_callback(result)
-	response_buffer = response_buffer .. result.data
+   response_buffer = response_buffer .. result.data
 end
 
 --
@@ -70,7 +67,7 @@ abz_write = function(message)
    myurl = myurl:gsub(" ","%%20")
    local request = {
       url = myurl,
-      timeout=30 
+      timeout = abz_timeout/1000
    }
    abz_http.fetch(request,abz_write_callback)	
 end

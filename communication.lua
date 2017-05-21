@@ -28,7 +28,7 @@ local count = 0
 messages = Queue:new()
 
 -- initalize the default port
-abz_init("localhost","54242",20000)
+abz_init("localhost","54242",5000)
 
 
 -- the function for handling the messages
