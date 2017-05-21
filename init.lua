@@ -32,6 +32,7 @@ if ( abz_http == nil ) then
    return
 end
 
+dofile(minetest.get_modpath("abbozza") .. "/config.lua")
 dofile(minetest.get_modpath("abbozza") .. "/queue.lua")
 dofile(minetest.get_modpath("abbozza") .. "/comm_http.lua")
 dofile(minetest.get_modpath("abbozza") .. "/communication.lua")
