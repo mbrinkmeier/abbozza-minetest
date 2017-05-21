@@ -1,29 +1,13 @@
-application = {
-	content = {
-		width = 320,
-		height = 480, 
-		scale = "letterBox",
-		fps = 30,
-		
-		--[[
-        imageSuffix = {
-		    ["@2x"] = 2,
-		}
-		--]]
-	},
+--
+-- Change the values in this file to your needs.
+-- 
+-- If your abbozza! installation isn't special, the follwing settings should work.
 
-    --[[
-    -- Push notifications
+-- The host under which the abbozza! monitor is accessible
+abz_host = "localhost"
 
-    notification =
-    {
-        iphone =
-        {
-            types =
-            {
-                "badge", "sound", "alert", "newsstand"
-            }
-        }
-    }
-    --]]    
-}
+-- The port used by the abbozza! monitor
+abz_port = "54242"
+
+-- The timeout (in milliseconds) for requests issued by blocks
+abz_timeout = 5000
