@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.ant.freeform</type>
+    <configuration>
+        <general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
+            <!-- Wenn diese Datei manuell bearbeitet wird, sollte kein Werkzeug zum Anpassen der Projekteigenschaften verwendet werden. -->
+            <name>abbozza-minetest</name>
+            <properties/>
+            <ide-actions/>
+            <view>
+                <items>
+                    <source-file>
+                        <location>build.xml</location>
+                    </source-file>
+                </items>
+                <context-menu/>
+            </view>
+        </general-data>
+        <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1"/>
+    </configuration>
+</project>

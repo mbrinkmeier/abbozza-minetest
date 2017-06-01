@@ -27,7 +27,7 @@ digital_punched = function(pos, node, puncher, pointed_thing, typ)
       pin = "0"
       meta:set_string("pin",pin)
    end
-   local host = meta:get_string("horst")
+   local host = meta:get_string("host")
    if ( host == "") then
       host = abz_host
       meta:set_string("host",host)
@@ -95,7 +95,7 @@ minetest.register_node("abbozza:digital_on", {
     description = "",
     tiles = {"digital_out_on.png"},
     groups = {choppy=1},
-    light_source = 5,
+    light_source = 10,
     mesecons = {effector = {
             action_off = function (pos, node)
                local meta = minetest.get_meta(pos)
@@ -137,7 +137,7 @@ minetest.register_node("abbozza:digital_in_on", {
 	description = "",
 	tiles = {"digital_in_on.png"},
 	groups = {choppy=1},
-    light_source = 5,
+    light_source = 10,
  	 on_receive_fields = function(pos, formname, fields, player)
  	 	digital_receive_fields(pos, formname, fields, player,"Input")
     end,
@@ -196,3 +196,73 @@ minetest.register_abm({
 	   end
 	end
 })
+
+
+
+--
+-- The sender block
+--
+
+
+minetest.register_node("abbozza:sender", {
+   description = "abbozza! sender block",
+   tiles = {"sender.png"},
+   groups = {choppy=1},
+   light_source = 0,
+   on_receive_fields = function(pos, formname, fields, player)
+      sender_receive_fields(pos, formname, fields, player,"Sender")
+   end,
+   after_place_node = function(pos, node, puncher, pointed_thing)
+      sender_punched(pos, node, puncher, pointed_thing,"Sender")
+   end,
+   mesecons = {effector = {
+      action_on = function (pos, node)
+         local meta = minetest.get_meta(pos)
+         local msg = meta:get_string("msg")
+         local host = meta:get_string("host")
+         local port = meta:get_string("port")
+         abz_send_http_plain(pos,host,port,msg,0)
+      end
+   }}     
+})
+
+
+sender_receive_fields = function(pos, formname, fields, sender, typ)
+   local meta = minetest.get_meta(pos)
+   meta:set_string("msg",fields.msg)
+   meta:set_string("host",fields.host)
+   meta:set_string("port",fields.port)
+   meta:set_string("formspec",
+      "size[5,6]" ..
+      "label[1,0;Command Block]" ..
+      "field[1,2;4,1;msg;Message;" .. meta:get_string("msg") .. "]" ..
+      "field[1,3;4,1;host;Host;" .. meta:get_string("host") .. "]" ..
+      "field[1,4;4,1;port;Port;" .. meta:get_string("port") .. "]" ..
+      "button_exit[1,5;3,1;save;Save]"
+   )
+end
+
+
+sender_punched = function(pos, node, puncher, pointed_thing, typ)  
+   local meta = minetest.get_meta(pos)
+   local msg = meta:get_string("msg")
+   local host = meta:get_string("host")
+   if ( host == "") then
+      host = abz_host
+      meta:set_string("host",host)
+   end
+   local port = meta:get_string("port")
+   if ( port == "") then
+      port = abz_port
+      meta:set_string("port",port)
+   end
+   meta:set_string("formspec",
+      "size[5,6]" ..
+      "label[1,0;Sender Block]" ..
+      "field[1,2;4,1;msg;Message;" .. msg .. "]" ..
+      "field[1,3;4,1;host;Host;" .. host .. "]" ..
+      "field[1,4;4,1;port;Port;" .. port .. "]" ..
+      "button_exit[1,5;3,1;save;Save!]"
+   )
+end
+

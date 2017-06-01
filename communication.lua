@@ -86,6 +86,16 @@ abz_send_http = function(pos,host,port,message,timeout)
     messages:enqueue( msg )
 end
 
+abz_send_http_plain = function(pos,host,port,message,timeout)
+    -- local id = "_" .. pos.x .. "_" .. pos.y .. "_" .. pos.z
+    -- local msg = "[[" .. id .. " " .. message .. "]]"
+    -- if ( timeout > 0 ) then
+    --    msg = msg .. "&timeout=" .. timeout 
+    -- end
+    local msg = "http://" .. host .. ":" .. port .. "/abbozza/serial?msg=" .. message
+    messages:enqueue( msg )
+end
+
 
 abz_receive = function()
     local response = nil
