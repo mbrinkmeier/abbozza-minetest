@@ -38,7 +38,7 @@ abz_globalstep = function()
    	abz_write(message)
    end
    
-	-- read input   
+   -- read input   
    -- print ("reading form device ...")
    -- local response = abbozza_in:read("*a")
    local response = abz_read()
@@ -85,6 +85,8 @@ abz_send_http = function(pos,host,port,message,timeout)
     msg = "http://" .. host .. ":" .. port .. "/abbozza/serial?msg=" .. msg
     messages:enqueue( msg )
 end
+
+
 
 abz_send_http_plain = function(pos,host,port,message,timeout)
     -- local id = "_" .. pos.x .. "_" .. pos.y .. "_" .. pos.z
